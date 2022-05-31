@@ -1,6 +1,6 @@
 use crate::{
 	file::cas::FileIdentifierJob, library::get_library_path, node::NodeState,
-	util::db::create_connection,
+	util::db::load_and_migrate,
 };
 use job::{Job, JobReport, Jobs};
 use prisma::PrismaClient;
@@ -143,15 +143,6 @@ impl Node {
 
 		state.save();
 
-		println!("Node State: {:?}", state);
-
-		// connect to default library
-		let database = Arc::new(
-			create_connection(&get_library_path(&data_dir))
-				.await
-				.unwrap(),
-		);
-
 		let internal_channel = unbounded_channel::<InternalEvent>();
 
 		let node = Node {
@@ -160,7 +151,11 @@ impl Node {
 			command_channel: unbounded_channel(),
 			jobs: Jobs::new(),
 			event_sender,
-			database,
+			database: Arc::new(
+				load_and_migrate(&format!("file:{}", get_library_path(&data_dir)))
+					.await
+					.unwrap(),
+			),
 			internal_channel,
 		};
 
@@ -229,17 +224,13 @@ impl Node {
 		} else {
 			for library in self.state.libraries.iter() {
 				// init database for library
-				match library::load(&ctx, &library.library_path, &library.library_uuid).await {
-					Ok(library) => println!("Loaded library: {:?}", library),
-					Err(e) => println!("Error loading library: {:?}", e),
-				}
+				library::load(&ctx, &library.library_path, &library.library_uuid)
+					.await
+					.unwrap();
 			}
 		}
 		// init node data within library
-		match node::LibraryNode::create(&self).await {
-			Ok(_) => println!("Spacedrive online"),
-			Err(e) => println!("Error initializing node: {:?}", e),
-		};
+		node::LibraryNode::create(&self).await.unwrap();
 	}
 
 	async fn exec_command(&mut self, cmd: ClientCommand) -> Result<CoreResponse, CoreError> {

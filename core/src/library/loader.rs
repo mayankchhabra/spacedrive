@@ -2,7 +2,6 @@ use uuid::Uuid;
 
 use crate::node::{get_nodestate, LibraryState};
 use crate::prisma::library;
-use crate::util::db::{run_migrations, DatabaseError};
 use crate::CoreContext;
 
 pub static LIBRARY_DB_NAME: &str = "library.db";
@@ -10,7 +9,7 @@ pub static DEFAULT_NAME: &str = "My Library";
 
 pub fn get_library_path(data_path: &str) -> String {
 	let path = data_path.to_owned();
-	format!("{}/{}", path, LIBRARY_DB_NAME)
+	format!("{}/{}", path, LIBRARY_DB_NAME) // TODO: This is not gonna work on Windows!!!!
 }
 
 // pub async fn get(core: &Node) -> Result<library::Data, LibraryError> {
@@ -40,11 +39,7 @@ pub fn get_library_path(data_path: &str) -> String {
 // 	Ok(library.unwrap())
 // }
 
-pub async fn load(
-	ctx: &CoreContext,
-	library_path: &str,
-	library_id: &str,
-) -> Result<(), DatabaseError> {
+pub async fn load(_ctx: &CoreContext, library_path: &str, library_id: &str) -> Result<(), ()> {
 	let mut config = get_nodestate();
 
 	println!("Initializing library: {} {}", &library_id, library_path);
@@ -54,7 +49,7 @@ pub async fn load(
 		config.save();
 	}
 	// create connection with library database & run migrations
-	run_migrations(&ctx).await?;
+	// run_migrations(&ctx).await?; // TODO
 	// if doesn't exist, mark as offline
 	Ok(())
 }
@@ -72,7 +67,7 @@ pub async fn create(ctx: &CoreContext, name: Option<String>) -> Result<(), ()> {
 		..LibraryState::default()
 	};
 
-	run_migrations(&ctx).await.unwrap();
+	// run_migrations(&ctx).await.unwrap(); // TODO
 
 	config.libraries.push(library_state);
 
