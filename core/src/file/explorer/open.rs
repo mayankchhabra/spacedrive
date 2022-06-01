@@ -2,10 +2,10 @@ use crate::{
 	encode::THUMBNAIL_CACHE_DIR_NAME,
 	file::{DirectoryWithContents, FileError, FilePath},
 	node::get_nodestate,
-	prisma::file_path,
 	sys::get_location,
 	CoreContext,
 };
+use prisma::file_path;
 use std::path::Path;
 
 pub async fn open_dir(

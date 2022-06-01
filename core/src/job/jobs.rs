@@ -2,12 +2,9 @@ use super::{
 	worker::{Worker, WorkerContext},
 	JobError,
 };
-use crate::{
-	node::get_nodestate,
-	prisma::{job, node},
-	CoreContext,
-};
+use crate::{node::get_nodestate, CoreContext};
 use int_enum::IntEnum;
+use prisma::{job, node};
 use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, fmt::Debug, sync::Arc};
 use tokio::sync::Mutex;

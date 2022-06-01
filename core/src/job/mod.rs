@@ -1,7 +1,7 @@
 use std::fmt::Debug;
 use thiserror::Error;
 
-use crate::prisma;
+use prisma;
 
 mod jobs;
 mod worker;

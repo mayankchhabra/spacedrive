@@ -1,5 +1,6 @@
 // use crate::native;
-use crate::{node::get_nodestate, prisma::volume::*};
+use crate::node::get_nodestate;
+use prisma::volume::*;
 use serde::{Deserialize, Serialize};
 use ts_rs::TS;
 // #[cfg(not(target_os = "macos"))]

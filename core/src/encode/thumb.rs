@@ -2,12 +2,12 @@ use crate::job::JobReportUpdate;
 use crate::node::get_nodestate;
 use crate::{
 	job::{Job, WorkerContext},
-	prisma::file_path,
 	CoreContext,
 };
 use crate::{sys, CoreEvent};
 use futures::executor::block_on;
 use image::*;
+use prisma::file_path;
 use std::fs;
 use std::path::{Path, PathBuf};
 use webp::*;

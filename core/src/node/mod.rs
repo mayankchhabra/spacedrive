@@ -1,9 +1,7 @@
-use crate::{
-	prisma::{self, node},
-	Node,
-};
+use crate::Node;
 use chrono::{DateTime, Utc};
 use int_enum::IntEnum;
+use prisma::{self, node};
 use serde::{Deserialize, Serialize};
 use std::env;
 use thiserror::Error;

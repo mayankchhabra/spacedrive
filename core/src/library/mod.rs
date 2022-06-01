@@ -6,7 +6,8 @@ pub use statistics::*;
 
 use thiserror::Error;
 
-use crate::{prisma, sys::SysError};
+use crate::sys::SysError;
+use prisma;
 
 #[derive(Error, Debug)]
 pub enum LibraryError {

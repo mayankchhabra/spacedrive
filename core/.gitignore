@@ -1,4 +1,4 @@
 /target
 /types
 *.db*
-/src/prisma.rs
+/prisma/src/lib.rs

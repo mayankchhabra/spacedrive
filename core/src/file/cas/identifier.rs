@@ -6,9 +6,9 @@ use crate::sys::get_location;
 use crate::{
 	file::FileError,
 	job::{Job, WorkerContext},
-	prisma::file_path,
 	CoreContext,
 };
+use prisma::file_path;
 use futures::executor::block_on;
 use prisma_client_rust::prisma_models::PrismaValue;
 use prisma_client_rust::raw::Raw;

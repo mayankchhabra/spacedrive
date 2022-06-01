@@ -20,7 +20,6 @@ mod file;
 mod job;
 mod library;
 mod node;
-mod prisma;
 mod sys;
 mod util;
 

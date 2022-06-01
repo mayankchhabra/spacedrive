@@ -1,6 +1,6 @@
-use crate::prisma::{self, migration, PrismaClient};
 use data_encoding::HEXLOWER;
 use include_dir::{include_dir, Dir};
+use prisma::{self, migration, PrismaClient};
 use prisma_client_rust::{raw, NewClientError};
 use ring::digest::{Context, SHA256};
 use thiserror::Error;

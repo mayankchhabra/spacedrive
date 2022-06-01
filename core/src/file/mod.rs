@@ -3,10 +3,8 @@ use serde::{Deserialize, Serialize};
 use thiserror::Error;
 use ts_rs::TS;
 
-use crate::{
-	prisma::{self, file, file_path},
-	sys::SysError,
-};
+use crate::sys::SysError;
+use prisma::{self, file, file_path};
 pub mod cas;
 pub mod explorer;
 pub mod indexer;

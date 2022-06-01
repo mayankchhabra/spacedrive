@@ -6,7 +6,7 @@ pub use volumes::*;
 
 use thiserror::Error;
 
-use crate::{job, prisma};
+use crate::job;
 
 #[derive(Error, Debug)]
 pub enum SysError {

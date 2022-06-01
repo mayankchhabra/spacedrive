@@ -1,8 +1,8 @@
 use uuid::Uuid;
 
 use crate::node::{get_nodestate, LibraryState};
-use crate::prisma::library;
 use crate::CoreContext;
+use prisma::library;
 
 pub static LIBRARY_DB_NAME: &str = "library.db";
 pub static DEFAULT_NAME: &str = "My Library";

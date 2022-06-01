@@ -1,5 +1,5 @@
 [alias]
-prisma = "run -p prisma-cli --"
+prisma = "run -p sdcore-prisma --"
 
 [target.x86_64-apple-darwin]
 rustflags = [
