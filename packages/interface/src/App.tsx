@@ -16,6 +16,7 @@ import {
 } from 'react-router-dom';
 
 import { Sidebar } from './components/file/Sidebar';
+import { WithContextMenu } from './components/layout/MenuOverlay';
 import { Modal } from './components/layout/Modal';
 import SlideUp from './components/transitions/SlideUp';
 import { useCoreEvents } from './hooks/useCoreEvents';
@@ -80,14 +81,27 @@ function AppLayout() {
 				hasWindowBorder && 'border border-gray-200 dark:border-gray-500'
 			)}
 		>
-			<Sidebar />
-			<div className="flex flex-col w-full min-h-full">
-				{/* <TopBar /> */}
+			<WithContextMenu
+				menu={[
+					[
+						{
+							label: 'Reload',
+							onClick() {
+								window.location.reload();
+							}
+						}
+					]
+				]}
+			>
+				<Sidebar />
+				<div className="flex flex-col w-full min-h-full">
+					{/* <TopBar /> */}
 
-				<div className="relative flex w-full">
-					<Outlet />
+					<div className="relative flex w-full">
+						<Outlet />
+					</div>
 				</div>
-			</div>
+			</WithContextMenu>
 		</div>
 	);
 }
